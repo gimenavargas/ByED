@@ -23,10 +23,15 @@ class AlumnoController extends Controller
     // Guardar un nuevo alumno
     public function store(Request $request)
     {
-        Alumno::create($request->all());
+        // Excluir el campo '_token' de los datos del formulario
+        $data = $request->except('_token');
+    
+        // Guardar un nuevo alumno con los datos del formulario
+        Alumno::create($data);
+    
+        // Redirigir a la lista de alumnos después de guardar el nuevo alumno
         return redirect()->route('alumnos.index');
     }
-
     // Mostrar un alumno específico
     public function show($id)
     {
